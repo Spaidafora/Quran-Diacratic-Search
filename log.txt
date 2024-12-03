@@ -1,0 +1,4 @@
+merging multile json files using py: https://www.geeksforgeeks.org/how-to-merge-multiple-json-files-using-python/
+
+setting up sqlite DB (express js ) - https://www.youtube.com/watch?v=ZRYn6tgnEgM
+
