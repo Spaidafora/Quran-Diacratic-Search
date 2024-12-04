@@ -5,7 +5,7 @@ def merge_json_files(file_path_1, file_path_2, output_file):
     with open(file_path_1, 'r', encoding='utf-8') as arabic:
         arabic_json = json.load(arabic)
     
-    # Load 
+   
     with open(file_path_2, 'r', encoding='utf-8') as english:
         english_json = json.load(english)
     
