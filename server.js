@@ -15,7 +15,18 @@ const app = express()
 // view engine (EJS)
 app.set('view engine', 'ejs')  
 
+// reusing old code
+// Middleware for sessions & passport (0Auth) , links session mangement w/ passport for authentication 
 
+app.use(session({   
+    secret: '5523', 
+    resave: false, 
+    saveUninitialized: false 
+}))
+
+
+app.use(passport.initialize())   
+app.use(passport.session())     
 
 
 
@@ -25,8 +36,12 @@ app.use('/auth', authRoutes); // [auth/ -> login, logout, google]
 
 // homepage route 
 app.get('/', (req, res) => {
-    res.render('index'); 
+    res.render('index', {user: req.user}); 
 })
+
+
+
+
 
 
 app.listen(3000, () => {
