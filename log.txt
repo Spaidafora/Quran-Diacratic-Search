@@ -1,4 +1,11 @@
 merging multile json files using py: https://www.geeksforgeeks.org/how-to-merge-multiple-json-files-using-python/
 
-setting up sqlite DB (express js ) - https://www.youtube.com/watch?v=ZRYn6tgnEgM
+setting up sqlite DB (express js ) - https://www.youtube.com/watch?v=ZRYn6tgnEgM 
 
+Google Auth with passport and POSTGRESQL - https://www.youtube.com/watch?v=4lMOcdW9OhQ
+
+How to Connect a Postgres Database to Express: A Step-by-Step Guide - https://medium.com/@eslmzadpc13/how-to-connect-a-postgres-database-to-express-a-step-by-step-guide-b2fffeb8aeac
+
+pooling - https://hyperskill.org/learn/step/39295
+
+.env use and fix - https://www.youtube.com/watch?v=hZUNMYU4Kzo 

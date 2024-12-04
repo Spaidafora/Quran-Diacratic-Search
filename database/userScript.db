@@ -1,0 +1,11 @@
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    google_id VARCHAR(255) UNIQUE NOT NULL, -- Google ID
+    display_name VARCHAR(255),             -- Display Name
+    profile_picture TEXT,                  -- Profile Picture URL
+    provider VARCHAR(50),                  -- Authentication Provider
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Signup Timestamp
+);
+
+
+

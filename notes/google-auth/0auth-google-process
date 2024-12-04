@@ -1,0 +1,7 @@
+We decided to enable sign-in with Google.
+We redirect the user to the Google OAuth flow through Passport.
+Passport sends the user to Google's permission screen.
+The user grants permission, and Google redirects back to our specified redirect URI with a code.
+We call passport.authenticate again, and Passport sees the code in the URL.
+Passport exchanges the code with Google for the user's profile information.
+Google sends back the profile information, which triggers Passport's callback function. 
