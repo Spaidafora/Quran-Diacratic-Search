@@ -4,6 +4,15 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('./keys');
 const User = require('../../models/User'); //  User model
 
+
+//test
+
+
+console.log('Loaded User:', User);
+console.log('User methods:', Object.keys(User));
+
+//
+
 // config google strategy 
 passport.use(new GoogleStrategy({
     // options for google strategy 
@@ -46,15 +55,22 @@ async (accessToken, refreshToken, profile, done) => {
 }}));
 
 
-passport.serializeUser((user, done) =>{
-done(null, user.id);
-}); 
 
-passport.deserializeUser((id, done) =>{
-    User.findByGoogleId(id, (err, user) => {
-        done(err, user); 
-    });
-});
+
+passport.serializeUser((user, done) =>{
+    console.log('Serializing user: ', user.google_id);
+    done(null, user.google_id);
+}); // passing user.id to done callback, no db op. #session
+
+passport.deserializeUser(async (google_id, done) =>{
+    try {
+        const user = await User.findByGoogleId(google_id);
+        done(null,user);
+    } catch (err){
+        done(err, null)
+    }
+    }); // err to catch db or query issues 
+
 
 
 

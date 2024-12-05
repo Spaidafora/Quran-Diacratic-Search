@@ -7,7 +7,7 @@ const session = require("express-session");
 const passport = require("./services/passport/passport");       
 const authRoutes = require('./routes/authRoutes')    
 require('dotenv').config(); // env vars
-const pool = require('./services/database/database'); 
+const pool = require('./config/database'); 
 
  
 const app = express()    

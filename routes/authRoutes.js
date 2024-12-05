@@ -11,22 +11,32 @@ router.get('/login',(req, res) => {
 
 // logout
 
-router.get('logout', (res, req) =>{
-    res.send('logging out'); 
-})
+router.get('/logout', (req, res) => {
+    req.logout((err) => {
+        if (err){
+            return next(err);
+        }
+        console.log('User active (did login work?):', req.user);
+        res.redirect('/');
+    });
+});
 
 
 // auth with google
 router.get('/google', passport.authenticate('google', {
     // what we want to retrieve from the profile 
-    scope: ['profile']
+    scope: ['profile', 'email']
 })); 
 
 
 //callback route for google redirect too 
-//FIX
-router.get('/google/redirect', passport.authenticate('google'), (req,res) => { // will take code {@url} and exchange for profile info
- res.send('You reached the callback URI')
+
+router.get('/google/redirect', passport.authenticate('google', {
+    failureRedirect: '/login' // if fail, redirect to login pg
+}), (req, res) => {
+    res.redirect('/'); // redirect to homepage
+    console.log('User active (did login work?):', req.user);
 });
+
 
 module.exports = router; 

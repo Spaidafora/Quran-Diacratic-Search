@@ -10,3 +10,17 @@ pool.query('SELECT NOW()', (err, res) => {
     } 
     pool.end(); 
 });
+
+
+
+
+
+// lsof -nP -iTCP:5432 | grep LISTEN
+
+
+// psql -U postgres -d QuranWords
+
+
+//roles
+
+//psql -U postgres -c "\du"

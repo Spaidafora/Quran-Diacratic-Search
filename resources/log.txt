@@ -9,3 +9,7 @@ How to Connect a Postgres Database to Express: A Step-by-Step Guide - https://me
 pooling - https://hyperskill.org/learn/step/39295
 
 .env use and fix - https://www.youtube.com/watch?v=hZUNMYU4Kzo 
+
+passport serialize deserialize-   https://stackoverflow.com/questions/27637609/understanding-passport-serialize-deserialize
+
+async and await - https://www.geeksforgeeks.org/async-await-function-in-javascript/
