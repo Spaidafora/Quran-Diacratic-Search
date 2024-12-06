@@ -13,3 +13,10 @@ pooling - https://hyperskill.org/learn/step/39295
 passport serialize deserialize-   https://stackoverflow.com/questions/27637609/understanding-passport-serialize-deserialize
 
 async and await - https://www.geeksforgeeks.org/async-await-function-in-javascript/
+
+read and write json file using node: https://www.geeksforgeeks.org/how-to-read-and-write-json-file-using-node-js/
+
+unicode diacrtics - https://sites.psu.edu/symbolcodes/languages/mideast/arabic/arabicchart/
+
+
+reading files with node.js - https://nodejs.org/en/learn/manipulating-files/reading-files-with-nodejs
