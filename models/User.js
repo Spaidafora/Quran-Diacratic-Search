@@ -1,5 +1,6 @@
 
-
+const pool = require('../config/database'); 
+console.log("pool in userjs: ", pool); 
 
 const User = {
     // Find a user by Google ID
@@ -10,7 +11,7 @@ const User = {
         return result.rows[0]; // Return the user object if found
     },
 
-    // Create a new user
+    // create a new user
     create: async (googleId, displayName, profilePicture, provider, email) => {
         const query = `
             INSERT INTO users (google_id, display_name, profile_picture, provider, email)
@@ -19,8 +20,8 @@ const User = {
         `;
         const values = [googleId, displayName, profilePicture, provider, email];
         const result = await pool.query(query, values);
-        return result.rows[0]; // Return the newly created user
+        return result.rows[0]; // returns new created user
     },
 };
 
-module.exports = User;
+module.exports = User; 

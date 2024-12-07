@@ -5,12 +5,12 @@ const keys = require('./keys');
 const User = require('../../models/User'); //  User model
 
 
+
 //test
 
-
-console.log('Loaded User:', User);
-console.log('User methods:', Object.keys(User));
-
+console.log("test here: ")
+console.log('Loaded User:', User); // Should log the User object
+console.log('User methods:', Object.keys(User)); // Should show ['findByGoogleId', 'create']
 //
 
 // config google strategy 

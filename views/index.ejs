@@ -1,40 +1,123 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Quran Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <nav class="navbar">
-        <ul class="nav-list">
-            <li><a href="/">Home</a></li>
-            <li><a href="http://localhost:3000/auth/login">Login </a></li>
-        </ul>
+<body class="bg-gray-50">
+    <nav class="bg-white shadow-sm border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-4">
+            <ul class="flex space-x-8">
+                <li><a href="/" class="text-gray-600 hover:text-blue-500">Home</a></li>
+                <li><a href="/auth/login" class="text-gray-600 hover:text-blue-500">Login</a></li>
+            </ul>
+        </div>
     </nav>
 
+<!--diacritic checkboxes-->
+<div class="max-w-2xl mx-auto p-4 bg-white rounded-lg shadow mt-4">
+    <h3 class="text-lg font-medium mb-3">Diacritic Filters</h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <label class="flex items-center space-x-2">
+            <input type="checkbox" value="َ" class="form-checkbox">
+            <span>Fatha (ــَـ)</span>
+        </label>
+        <label class="flex items-center space-x-2">
+            <input type="checkbox" value="ِ" class="form-checkbox">
+            <span>Kasra (ــِـ)</span>
+        </label>
+        <label class="flex items-center space-x-2">
+            <input type="checkbox" value="ُ" class="form-checkbox">
+            <span>Dhamma (ــُـ)</span>
+        </label>
+        <label class="flex items-center space-x-2">
+            <input type="checkbox" value="ْ" class="form-checkbox">
+            <span>Sukun (ــْـ)</span>
+        </label>
+     
+    </div>
+</div>
 
-        <div class="search-container">
-            <form>
-                <input type="text" class="search-box" placeholder="Enter search term...">
-                <button type="submit" class="search-button">Search</button>
-            </form>
-    
-            <div class="results">
-                <h2>Results</h2>
- 
-                <div class="result-item">
-        
+    <div class="max-w-2xl mx-auto p-6">
+        <input 
+            id="searchInput" 
+            type="text" 
+            placeholder="Search Quran words..."
+            class="w-full p-4 rounded-lg border"
+        >
 
-                </div>
-            </div>
-        </div>
+        <div id="results" class="mt-4"></div>
+
+        <!--add pagination controls later -->
+      
+
+   
+<script>
+
+    let currentPage =1; 
+    let totalPages = 1; 
+
+    function searchWords() {
+        const searchTerm = document.getElementById('searchInput').value.trim();
+        const page = currentPage; // current pg to fetch   
+
+        if (searchTerm === '') { // show message if no search word is given
+                document.getElementById('results').innerHTML = '<p class="text-center text-gray-500">Please enter a search term.</p>';
+                document.getElementById('pagination').classList.add('hidden');
+                return;
+        }
+
+        // api call to backend search endpoint 
+        // fetch > GET request to backend API 
+
+        fetch(`/api/search?word=${searchTerm}&page=${page}`)
+            .then(response => response.json()) // convert response to json
+            .then(data => {
+                const resultsDiv = document.getElementById('results');
+                // check if results exist 
+                if (data.results?.length > 0) { // maps through the results  array and generate html for each result 
+                    const html = data.results.map(result => `
+                        <div class="bg-white rounded p-4 mb-2">
+                            <div class="text-2xl text-right">${result.arabic_text}</div>
+                            <div class="text-lg text-right text-gray-500">${result.arabic_text_simple}</div>
+                            <div class="text-gray-600">${result.english_text}</div>
+                        </div>
+                    `).join(''); // join all html strings into one 
+                    resultsDiv.innerHTML = html;  //send to results container 
+                } else { //errr
+                    resultsDiv.innerHTML = '<p class="text-center text-gray-500">No results found</p>';
+            }
 
 
-    
+                //pagintation skipped 
+           
+
+            })
+            .catch(error => { // handle api error 
+                console.error('Error:', error);
+                document.getElementById('results').innerHTML = 
+                    '<p class="text-center text-red-500">Error searching</p>';
+            });
+    }
+
+    let timeoutId = null; 
+
+    const searchInput = document.getElementById('searchInput');
+
+    searchInput.addEventListener('input', () => {
+        // if existing timeout clear (prevent multiple api calls)
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        // set new timer, waiting 3 secs after user stops typing 
+        timeoutId = setTimeout(() => {
+            currentPage = 1; // reset to first page
+            searchWords(); //call search function to fetch
+        }, 300); // delay 3 secs
+    });
+</script>
+
 </body>
 </html>
-
-

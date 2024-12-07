@@ -8,6 +8,7 @@ const passport = require("./services/passport/passport");
 const authRoutes = require('./routes/authRoutes')    
 require('dotenv').config(); // env vars
 const pool = require('./config/database'); 
+const searchRoutes = require('./routes/searchRoutes');
 
  
 const app = express()    
@@ -34,13 +35,16 @@ app.use(passport.session())
 app.use('/auth', authRoutes); // [auth/ -> login, logout, google]
 
 
+// search routes 
+app.use('/api', searchRoutes);
+
 // homepage route 
 app.get('/', (req, res) => {
     res.render('index', {user: req.user}); 
 })
 
 
-
+app.use(express.static(__dirname + '/public'));
 
 
 
