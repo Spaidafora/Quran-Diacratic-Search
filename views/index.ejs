@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quran Search</title>
+    <title>Dynamic Search with Filters</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
+    
     <nav class="bg-white shadow-sm border-b border-gray-100">
         <div class="max-w-6xl mx-auto px-4">
             <ul class="flex space-x-8">
@@ -16,47 +17,66 @@
         </div>
     </nav>
 
-<!--diacritic checkboxes-->
-<div class="max-w-2xl mx-auto p-4 bg-white rounded-lg shadow mt-4">
-    <h3 class="text-lg font-medium mb-3">Diacritic Filters</h3>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <label class="flex items-center space-x-2">
-            <input type="checkbox" value="َ" class="form-checkbox">
-            <span>Fatha (ــَـ)</span>
-        </label>
-        <label class="flex items-center space-x-2">
-            <input type="checkbox" value="ِ" class="form-checkbox">
-            <span>Kasra (ــِـ)</span>
-        </label>
-        <label class="flex items-center space-x-2">
-            <input type="checkbox" value="ُ" class="form-checkbox">
-            <span>Dhamma (ــُـ)</span>
-        </label>
-        <label class="flex items-center space-x-2">
-            <input type="checkbox" value="ْ" class="form-checkbox">
-            <span>Sukun (ــْـ)</span>
-        </label>
-     
-    </div>
-</div>
-
-    <div class="max-w-2xl mx-auto p-6">
+   
+    <div class="max-w-2xl mx-auto p-4 bg-white rounded-lg shadow mt-4">
+        <h3 class="text-lg font-medium mb-3">Search and Filters</h3>
+        <!-- search input -->
         <input 
             id="searchInput" 
             type="text" 
-            placeholder="Search Quran words..."
-            class="w-full p-4 rounded-lg border"
+            placeholder="Search Quran words..." 
+            class="w-full p-2 border rounded mb-4"
         >
+        <!-- Harakat filters options -->
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+            
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" value="َ" class="form-checkbox filter-checkbox">
+                <span>Fatha (ــَـ)</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" value="ِ" class="form-checkbox filter-checkbox">
+                <span>Kasra (ــِـ)</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" value="ُ" class="form-checkbox filter-checkbox">
+                <span>Dhamma (ــُـ)</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" value="ً" class="form-checkbox filter-checkbox">
+                <span>Fathatain (ــًـ)</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" value="ٍ" class="form-checkbox filter-checkbox">
+                <span>Kasratain (ــٍـ)</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" value="ٌ" class="form-checkbox filter-checkbox">
+                <span>Dhammatain (ــٌـ)</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" value="ّ" class="form-checkbox filter-checkbox">
+                <span>Shaddaa (ــّـ)</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" value="ْ" class="form-checkbox filter-checkbox">
+                <span>Sukun (ــْـ)</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" value="ٰ" class="form-checkbox filter-checkbox">
+                <span>Baby Alif (ــٰـ)</span>
+            </label>
+        </div>
+    </div>
 
+    <!-- results -->
+    <div class="max-w-2xl mx-auto p-6">
         <div id="results" class="mt-4"></div>
+    </div>
 
-        <!--add pagination controls later -->
-      
-
-   
-<script>
-
-    let currentPage =1; 
+  
+    <script>
+          let currentPage =1; 
     let totalPages = 1; 
 
     function searchWords() {
@@ -117,7 +137,8 @@
             searchWords(); //call search function to fetch
         }, 300); // delay 3 secs
     });
-</script>
 
+    </script>
+    
 </body>
 </html>

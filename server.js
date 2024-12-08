@@ -38,6 +38,13 @@ app.use('/auth', authRoutes); // [auth/ -> login, logout, google]
 // search routes 
 app.use('/api', searchRoutes);
 
+// Route for /quiz
+// Route for /quiz
+app.get('/quiz', (req, res) => {
+    res.render('quiz', { user: req.user }); // Pass user object if needed
+});
+
+
 // homepage route 
 app.get('/', (req, res) => {
     res.render('index', {user: req.user}); 
