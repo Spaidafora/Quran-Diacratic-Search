@@ -8,7 +8,7 @@ const passport = require("./services/passport/passport");
 const authRoutes = require('./routes/authRoutes')    
 require('dotenv').config(); // env vars
 const pool = require('./config/database'); 
-const searchRoutes = require('./routes/searchRoutes');
+const searchRoutes = require('./routes/apiRoutes');
 
  
 const app = express()    

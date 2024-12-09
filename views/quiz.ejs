@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+</head>
+<body>
+    <div id="quiz-container">
+        <h3 id="total-score"></h3>
+        <h2 id="score"></h2>
+        <h1 id="question"></h1>
+        <ul id="options"></ul>
+    </div>
+    <button id="submit-answer" class="btn btn-primary"> Submit Answer</button> 
+    <button id="next" class="btn btn-primary">Next </button>
+    
+    <script>
+        let quizData; // for globle access
+        let scores = 0; 
+
+        async function fetchQuiz() {
+            try {
+                const response = await fetch('http://localhost:3000/api/quiz');
+                const data = await response.json();
+                console.log('Quiz Data is: ', data);
+                renderQuiz(data);
+               
+
+            } catch (error) {
+                console.error('Error fetching quiz API', error)
+            }
+        }
+
+        // render quiz data , dynamically displaying html elements 
+        function renderQuiz(quizData) {
+          
+            document.getElementById('question').textContent = quizData.question;
+            const optionsList = document.getElementById('options');
+            optionsList.innerHTML = ''; // clear existing options
+            quizData.options.forEach((option, index) => { // gpt help
+                optionsList.innerHTML += `
+            <div>       
+                <input type="radio" name="quiz-option" id="option-${index}" value="${option}">
+                <label for="option-${index}">${option}</label>
+            </div>
+        `;
+            });
+        
+      
+            // button submit listener 
+        document.getElementById('submit-answer').onclick = () => {
+            const selected = document.querySelector('input[name="quiz-option"]:checked');//gpt 
+            const score = document.getElementById('score')
+            const totalScore = document.getElementById('total-score');
+            if (!selected){
+                alert('Please select an option');
+                return;
+            }
+            if (selected.value == quizData.answer) {
+                console.log('Correct!', selected.value); //test
+                score.innerHTML = "CORRECT"
+                score.style.color = 'green'; 
+                scores++
+                totalScore.innerHTML = `Score: ${scores}`; 
+
+
+            } else {
+                //alert('Wrong, try again!')
+                score.innerHTML = 'WRONG!'
+                score.style.color = 'red'; 
+
+            };
+            document.getElementById('next').onclick = () => {
+                score.innerHTML = '';  // clear
+                fetchQuiz(); // fetch new question when next button is clicked 
+            }
+        }
+    }
+
+        fetchQuiz(); // fetch quiz on page load
+    </script>
+</body>
+</html>

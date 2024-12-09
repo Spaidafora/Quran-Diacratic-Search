@@ -20,3 +20,12 @@ unicode diacrtics - https://sites.psu.edu/symbolcodes/languages/mideast/arabic/a
 
 
 reading files with node.js - https://nodejs.org/en/learn/manipulating-files/reading-files-with-nodejs
+
+https://medium.com/@brasildu/fetch-get-request-on-local-api-6beb290ec50b
+
+https://www.w3schools.com/jsref/jsref_random.asp
+
+https://medium.com/@ajay.monga73/parameterized-queries-javascript-guide-how-to-prevent-sql-injection-with-parameterized-queries-18c5cbbfffe2
+
+spread : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+
