@@ -8,7 +8,8 @@ const session = require("express-session");
 const passport = require("./services/passport/passport");       
 const authRoutes = require('./routes/authRoutes')    
 const searchRoutes = require('./routes/apiRoutes');
-
+const profileRoute = require('./routes/profileRoutes');
+const pool = require("./config/database");
 // initialize express app first 
 const app = express()   
 
@@ -49,6 +50,13 @@ app.get('/quiz', (req, res) => {
 });
 
 
+
+
+ 
+ 
+
+
+
 // home route - renders index w/ user info 
 app.get('/', (req, res) => {
     res.render('index', {user: req.user}); 
@@ -57,6 +65,7 @@ app.get('/', (req, res) => {
 // static files via public dir (never used)
 app.use(express.static(__dirname + '/public'));
 
+app.use('/', profileRoute); 
 
 // start server
 app.listen(3000, () => {

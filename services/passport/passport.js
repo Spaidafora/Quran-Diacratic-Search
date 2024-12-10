@@ -11,7 +11,8 @@ const User = require('../../models/User'); //  User model
 console.log("test here: ")
 console.log('Loaded User:', User); // Should log the User object
 console.log('User methods:', Object.keys(User)); // Should show ['findByGoogleId', 'create']
-//
+
+
 
 // config google strategy 
 passport.use(new GoogleStrategy({
@@ -59,13 +60,15 @@ async (accessToken, refreshToken, profile, done) => {
 
 passport.serializeUser((user, done) =>{
     console.log('Serializing user: ', user.google_id);
+    console.log('sterrialized user:', user);
     done(null, user.google_id); // req.user from session for saving sore! 
 }); // passing user.id to done callback, no db op. #session
 
 passport.deserializeUser(async (google_id, done) =>{
     try {
         const user = await User.findByGoogleId(google_id);
-        done(null,user);
+        console.log('Deserialized user:', user);
+        done(null,user); // attach user object to req.user
     } catch (err){
         done(err, null)
     }

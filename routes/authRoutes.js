@@ -16,7 +16,7 @@ router.get('/logout', (req, res) => {
         if (err){
             return next(err);
         }
-        console.log('User active (did login work?):', req.user);
+        console.log('Successful logout if value null: ', req.user);
         res.redirect('/');
     });
 });
