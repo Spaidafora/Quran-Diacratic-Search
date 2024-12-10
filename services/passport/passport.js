@@ -37,7 +37,7 @@ async (accessToken, refreshToken, profile, done) => {
                 profile.id,
                 profile.displayName,
                 profile.photos?.[0]?.value || null, 
-                'google',
+                'google', //provider
                 profile.emails?.[0]?.value || null // add what you want from Google profiles 
             );
             console.log('Thanks for joining', user);
@@ -59,7 +59,7 @@ async (accessToken, refreshToken, profile, done) => {
 
 passport.serializeUser((user, done) =>{
     console.log('Serializing user: ', user.google_id);
-    done(null, user.google_id);
+    done(null, user.google_id); // req.user from session for saving sore! 
 }); // passing user.id to done callback, no db op. #session
 
 passport.deserializeUser(async (google_id, done) =>{

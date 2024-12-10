@@ -9,4 +9,9 @@ router.get('/search', searchController.searchWords);
 
 router.get('/quiz', quizController.getQuizQuestions)
 
+
+router.get('/get-score', quizController.getScore);  // get => db
+router.post('/update-score', quizController.getScore);  // post => send back / update 
+
+
 module.exports = router;

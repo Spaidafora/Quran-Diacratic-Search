@@ -10,7 +10,8 @@ CREATE TABLE users (
 ALTER TABLE users ADD COLUMN email VARCHAR(255); -- add email 
 
 
-
+ALTER TABLE users
+ADD COLUMN score INTEGER DEFAULT 0; -- add scores 
 
 
 CREATE TABLE quran_words (  

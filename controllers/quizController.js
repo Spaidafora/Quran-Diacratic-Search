@@ -8,18 +8,21 @@ const getQuizQuestions = async (req, res) => {
         const questionResult = await pool.query(
             'SELECT arabic_text, english_text FROM quran_words ORDER BY RANDOM() LIMIT 1;'
         );
-        const quizQuestion = questionResult.rows[0].arabic_text; // singles
+        const quizQuestion = questionResult.rows[0].arabic_text; // first row, arabic col
         const correctAnswer = questionResult.rows[0].english_text;
 
         // query to fetch 3 multiple choice english_text != answer
         const incorrectOptions = await pool.query(
             `SELECT english_text FROM quran_words WHERE english_text != '${correctAnswer}' ORDER BY RANDOM() LIMIT 3;`
         );
+
+        console.log(incorrectOptions); //before
         
-         // mapped into [wrongOptions, correctAnswer] = [[array wrong options], correctAnswer ] 
+         // array of objects => mapped to single array of english values 
         const wrongOptions = incorrectOptions.rows.map(row => row.english_text);
         
-        // combine correct answer with wrong using spread and shuffle it 
+        console.log(wrongOptions);  // after
+        // combine correct answer with wrong using spread (...)-- so not nested and shuffle it 
         const options = [correctAnswer, ...wrongOptions].sort(() => Math.random() - 0.5);
 
         console.log({
@@ -45,6 +48,50 @@ const getQuizQuestions = async (req, res) => {
     }
 };
 
+const getScore = async (req, res) => {
+    try{ 
+        const userEmail = req.user.email;  // google auth sess , passport.js
+        const userScore = await pool.query (
+            'SELECT score from users WHERE email = $1', [userEmail] /// parameterized query
+        ); 
+        res.json({
+            success: 'true',
+            score: userScore.rows[0].score // first row, col @ score
+        }); 
+
+        }catch (error) {
+        console.error("Error trying to get score", error)
+        res.json({error: 'failed to get score from db'}) // internal server err
+
+    }
+};
+
+
+const updateScore = async (req, res) => {
+    try{ 
+        if (!req.user){
+            return res.status(401).json({error: 'You must log in to have/update score'}); 
+        }
+        const userEmail = req.user.email;
+        const { updatedScore } = req.body; // get from frontend
+
+        await pool.query(
+            'UPDATE users SET score = $1 WHERE email = $2', [updatedScore, userEmail] // set new score
+        ); 
+
+        // get and return the new updated score for frontend
+
+        const result = await pool.query(
+            'SELECT score from users WHERE email = $1', [userEmail]
+        ); 
+
+        res.json(
+            { score: result.rows[0].score }  ); // new score val
+         } catch (error) {
+            res.json({error: 'failed to update score'}) 
+         }
+}
+
 console.log('Example results test')
 
 // api fetch test
@@ -56,4 +103,8 @@ fetch('http://localhost:3000/api/quiz')
 
 
 
-module.exports = { getQuizQuestions };
+
+module.exports = { getQuizQuestions,
+                    getScore,
+                    updateScore
+ };

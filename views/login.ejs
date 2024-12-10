@@ -4,20 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="http://localhost:3000/auth/login">Login</a></li>
-            <li><a href="http://localhost:3000/auth/logout">Logout</a></li>
-        </ul>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+    <!-- nav -->
+    <nav class="bg-white shadow-sm border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 py-3">
+            <ul class="flex space-x-8">
+                <li><a href="/" class="text-gray-600 hover:text-blue-500">Home</a></li>
+                <li><a href="http://localhost:3000/auth/login" class="text-gray-600 hover:text-blue-500">Login</a></li>
+                <li><a href="http://localhost:3000/auth/logout" class="text-gray-600 hover:text-blue-500">Logout</a></li>
+            </ul>
+        </div>
     </nav>
-    <div>
-        <h1>Login</h1>
-        <a href="http://localhost:3000/auth/google">
-            Login with Google
-        </a>
-    </div>
+
+    <!-- main  -->
+    <main class="flex-grow flex items-center justify-center">
+        <div class="max-w-md w-full bg-white shadow-lg rounded-lg p-8 text-center">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">Welcome!</h1>
+            <p class="text-gray-600 mb-8">Login to access your account and continue where you left off.</p>
+            <a href="http://localhost:3000/auth/google" class="w-full px-4 py-2 bg-blue-500 text-white font-medium rounded-md shadow hover:bg-blue-600 transition inline-block">
+                Login with Google
+            </a>
+        </div>
+    </main>
+
+    <!-- footer -->
+    <footer class="bg-white shadow-sm border-t border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-center items-center">
+            <p class="text-gray-600 text-sm">&copy; CMPS 3390 - Project 3</p>
+        </div>
+    </footer>
+
 </body>
 </html>

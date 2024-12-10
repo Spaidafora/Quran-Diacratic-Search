@@ -1,60 +1,64 @@
 
 // npm install express express-session passport ejs passport-google-oauth20
-//  npm install nodemon --save-dev
+// npm install nodemon --save-dev
 
+//required dependecies 
 const express = require("express");                                
 const session = require("express-session");                        
 const passport = require("./services/passport/passport");       
 const authRoutes = require('./routes/authRoutes')    
-require('dotenv').config(); // env vars
-const pool = require('./config/database'); 
 const searchRoutes = require('./routes/apiRoutes');
 
- 
-const app = express()    
+// initialize express app first 
+const app = express()   
 
-// view engine (EJS)
+
+//middleware setup 
+
+//parse json for api requests 
+app.use(express.json())
+ 
+
+// view engine (EJS) for rendering pages 
 app.set('view engine', 'ejs')  
 
-// reusing old code
-// Middleware for sessions & passport (0Auth) , links session mangement w/ passport for authentication 
+
+// sessions config 
 
 app.use(session({   
     secret: '5523', 
     resave: false, 
-    saveUninitialized: false 
+    saveUninitialized: false // dont create until something stores 
 }))
 
 
+// passport auth setup
 app.use(passport.initialize())   
-app.use(passport.session())     
+app.use(passport.session())     // pp w/ sessions 
 
 
 
-// set up auth routes 
-app.use('/auth', authRoutes); // [auth/ -> login, logout, google]
+// auth and api routes 
+app.use('/auth', authRoutes); // (/auth/google , /auth/logout)
+app.use('/api', searchRoutes); // (api/quiz, api/search, api/get-score)
 
 
-// search routes 
-app.use('/api', searchRoutes);
-
-// Route for /quiz
-// Route for /quiz
+// quiz route - renders quiz.ejs with user data
 app.get('/quiz', (req, res) => {
-    res.render('quiz', { user: req.user }); // Pass user object if needed
+    res.render('quiz', { user: req.user }); // Pass user object 
 });
 
 
-// homepage route 
+// home route - renders index w/ user info 
 app.get('/', (req, res) => {
     res.render('index', {user: req.user}); 
 })
 
-
+// static files via public dir (never used)
 app.use(express.static(__dirname + '/public'));
 
 
-
+// start server
 app.listen(3000, () => {
     console.log("Server is listening at port 3000")
 });
