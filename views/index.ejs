@@ -107,9 +107,9 @@
         // api call to backend search endpoint 
         // fetch > GET request to backend API 
 
-        fetch(`/api/search?word=${searchTerm}&page=${page}`)
-            .then(response => response.json()) // convert response to json
-            .then(data => {
+        fetch(`/api/search?word=${searchTerm}&page=${page}`) //callback function
+            .then(response => response.json()) // parse json string from response and convert javascript object
+            .then(data => {  
                 const resultsDiv = document.getElementById('results');
                 // check if results exist 
                 if (data.results?.length > 0) { // maps through the results  array and generate html for each result 

@@ -31,7 +31,7 @@ function removeArabicDiacritics(text) {
 }
 
 // import to db 
-function importToDB(jsonData) {
+function importToDB(jsonData) { //iterates through parsed json and inserts each word into db
     Object.entries(jsonData).forEach(([number, word]) => {
         const query = `
             INSERT INTO quran_words 

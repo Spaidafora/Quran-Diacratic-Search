@@ -69,6 +69,10 @@ const getScore = async (req, res) => {
 
 const updateScore = async (req, res) => {
     try{ 
+
+        console.log('controller recived req w/ body', req.body);
+        console.log('user info from contrl', req.user);
+        
         if (!req.user){
             return res.status(401).json({error: 'You must log in to have/update score'}); 
         }

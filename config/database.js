@@ -12,7 +12,7 @@ Port: process.env.DB_PORT
 
 
 
-const pool = new Pool({
+const pool = new Pool({ 
     user: process.env.DB_USER || 'postgres',      // from .env  file 
     host: process.env.DB_HOST || 'localhost',       
     database: process.env.DB_DATABASE || 'QuranWords',
